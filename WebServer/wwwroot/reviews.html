@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы о туре - Young Traveler</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/reviews.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">YOUNG TRAVELER</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О компании</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="popular-tours.html">Популярные туры</a></li>
+                    <li><a href="promotions.html">Акции</a></li>
+                    <li><a href="account.html">Личный кабинет</a></li>
+                    <li><a href="favorites.html">Избранное</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="reviews-header">
+            <h1>Отзывы о туре</h1>
+            <p>Здесь вы можете ознакомиться с отзывами наших клиентов об этом туре</p>
+            <a href="catalog.html" class="back-link">← Вернуться к каталогу</a>
+        </div>
+
+       
+        
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-author">Анна Петрова</div>
+                    <div class="review-date">15.09.2023</div>
+                </div>
+                <div class="review-rating">★★★★★</div>
+                <p>Отличный тур! Все было организовано на высшем уровне. Особенно понравилась экскурсия по старому кварталу Ханоя. Гид был очень knowledgeable и интересно рассказывал. Обязательно порекомендую вашу компанию друзьям!</p>
+            </div>
+            
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-author">Иван Сидоров</div>
+                    <div class="review-date">02.09.2023</div>
+                </div>
+                <div class="review-rating">★★★★☆</div>
+                <p>Хороший тур за свои деньги. Отель был комфортабельный, питание разнообразное. Единственное, трансфер из аэропорта немного задержался, но в целом все прошло хорошо. Спасибо за организацию!</p>
+            </div>
+            
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-author">Мария Козлова</div>
+                    <div class="review-date">28.08.2023</div>
+                </div>
+                <div class="review-rating">★★★★★</div>
+                <p>Это было наше первое путешествие во Вьетнам, и мы остались в полном восторге! Отличная организация, внимательные гиды, комфортные отели. Особенно понравились местные рынки и кухня. Обязательно вернемся!</p>
+            </div>
+        </div>
+        
+        <div class="add-review">
+            <h2>Оставить отзыв</h2>
+            <form id="review-form">
+                <div class="form-group">
+                    <label for="review-name">Ваше имя</label>
+                    <input type="text" id="review-name" required>
+                </div>
+                                
+                <div class="form-group">
+                    <label for="review-text">Текст отзыва</label>
+                    <textarea id="review-text" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="review-rating">Оценка</label>
+                    <div style="display: flex; align-items: center;">
+                            <select id="review-rating" required>
+                                <option value="">Выберите оценку</option>
+                                <option value="5">5 звезд</option>
+                                <option value="4">4 звезды</option>
+                                <option value="3">3 звезды</option>
+                                <option value="2">2 звезды</option>
+                                <option value="1">1 звезда</option>
+                            </select>
+                            <span id="rating-preview"></span>
+                        </div>
+                    </div>
+                
+                <button type="submit" class="btn">Отправить отзыв</button>
+            </form>
+        </div>
+
+        
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Telegram</a>
+            </div>
+            <a href="index.html" class="about-link">О нас</a>
+        </div>
+    </footer>
+
+    <script src="js/reviews-form.js"></script>
+    
+</body>
+</html>

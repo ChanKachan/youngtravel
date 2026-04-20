@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Избранное - Young Traveler</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/favorites.css">
+    <link rel="stylesheet" href="css/cattalog.css"> <!-- Добавляем стили карточек -->
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">YOUNG TRAVELER</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О компании</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="popular-tours.html">Популярные туры</a></li>
+                    <li><a href="promotions.html">Акции</a></li>
+                    <li><a href="account.html">Личный кабинет</a></li>
+                    <li><a href="favorites.html">Избранное</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="favorites-header">
+            <h1>Избранные туры</h1>
+            <p>Здесь собраны туры, которые вы добавили в избранное</p>
+        </div>
+        
+        <div class="favorites-grid">
+            <!-- Туры будут загружены через JavaScript -->
+        </div>
+        
+        <div class="empty-favorites">
+            <div class="empty-favorites-icon">♡</div>
+            <h2>В избранном пока пусто</h2>
+            <p>Добавляйте понравившиеся туры в избранное, чтобы не потерять их</p>
+            <a href="catalog.html" class="btn">Перейти к каталогу</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Telegram</a>
+            </div>
+            <a href="index.html" class="about-link">О нас</a>
+        </div>
+    </footer>
+
+    <script src="js/favorites.js"></script>
+</body>
+</html>

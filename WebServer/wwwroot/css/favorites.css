@@ -1,0 +1,117 @@
+.favorites-header {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.favorites-header h1 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.empty-favorites {
+  text-align: center;
+  padding: 3rem;
+}
+
+.empty-favorites-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: #bdc3c7;
+}
+
+.favorites-header {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.favorites-header h1 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.empty-favorites {
+    text-align: center;
+    padding: 3rem;
+    display: none; /* По умолчанию скрыто */
+}
+
+.empty-favorites-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: #bdc3c7;
+}
+
+.empty-favorites h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.empty-favorites p {
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+}
+
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.favorite-tour-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.favorite-tour-card:hover {
+    transform: translateY(-5px);
+}
+
+.remove-favorite {
+    background: #e74c3c !important;
+    margin-left: 0.5rem;
+}
+
+.remove-favorite:hover {
+    background: #c0392b !important;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .favorites-grid {
+        grid-template-columns: 1fr;
+    }
+}

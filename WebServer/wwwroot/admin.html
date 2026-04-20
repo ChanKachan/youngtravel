@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить тур - Young Traveler</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .add-tour-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .add-tour-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative; 
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s; 
+        }
+
+        .form-group input.error,
+        .form-group textarea.error,
+        .form-group select.error {
+            border-color: #e74c3c;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .form-hint {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-top: 0.25rem;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: none;
+            position: absolute;
+            bottom: -1.25rem; 
+            left: 0;
+            width: 100%;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">YOUNG TRAVELER</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О компании</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="popular-tours.html">Популярные туры</a></li>
+                    <li><a href="promotions.html">Акции</a></li>
+                    <li><a href="account.html">Личный кабинет</a></li>
+                    <li><a href="favorites.html">Избранное</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="add-tour-container">
+            <h1 class="section-title">Добавить тур в каталог</h1>
+            
+            <div class="success-message" id="successMessage">
+                Тур успешно добавлен в каталог!
+            </div>
+            
+            <form id="addTourForm" class="add-tour-form">
+                <div class="form-group">
+                    <label for="tourName">Название тура</label>
+                    <input type="text" id="tourName" name="tourName" placeholder="Введите название тура">
+                    <div class="form-hint">Название должно содержать от 5 до 100 символов (буквы, цифры, пробелы, дефисы)</div>
+                    <div class="error-message" id="tourNameError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tourPrice">Цена тура (руб.)</label>
+                    <input type="text" id="tourPrice" name="tourPrice" placeholder="Введите цену тура">
+                    <div class="form-hint">Цена должна быть целым числом от 10000 до 500000 рублей</div>
+                    <div class="error-message" id="tourPriceError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tourDates">Даты тура</label>
+                    <input type="text" id="tourDates" name="tourDates" placeholder="Например: 15.10.2023 - 22.10.2023">
+                    <div class="form-hint">Формат: ДД.ММ.ГГГГ - ДД.ММ.ГГГГ. Дата возвращения должна быть позже даты вылета</div>
+                    <div class="error-message" id="tourDatesError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tourCity">Город назначения</label>
+                    <select id="tourCity" name="tourCity">
+                        <option value="">Выберите город</option>
+                        <option value="Ханой">Ханой</option>
+                        <option value="Нячанг">Нячанг</option>
+                        <option value="Хошимин">Хошимин</option>
+                        <option value="Дананг">Дананг</option>
+                        <option value="Хюэ">Хюэ</option>
+                        <option value="Халонг">Халонг</option>
+                        <option value="Хойан">Хойан</option>
+                        <option value="Фукуок">Фукуок</option>
+                        <option value="Шапа">Шапа</option>
+                        <option value="Муйне">Муйне</option>
+                    </select>
+                    <div class="form-hint">Выберите город из списка</div>
+                    <div class="error-message" id="tourCityError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tourEmail">Email для связи</label>
+                    <input type="text" id="tourEmail" name="tourEmail" placeholder="Введите email">
+                    <div class="form-hint">Введите корректный email адрес</div>
+                    <div class="error-message" id="tourEmailError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tourDescription">Описание тура</label>
+                    <textarea id="tourDescription" name="tourDescription" placeholder="Опишите тур подробно"></textarea>
+                    <div class="form-hint">Описание должно содержать от 50 до 2000 символов</div>
+                    <div class="error-message" id="tourDescriptionError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tourImage">Ссылка на изображение</label>
+                    <input type="text" id="tourImage" name="tourImage" placeholder="Введите URL изображения">
+                    <div class="form-hint">Введите корректный URL изображения (должен начинаться с http:// или https://)</div>
+                    <div class="error-message" id="tourImageError"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='catalog.html'">Отмена</button>
+                    <button type="submit" class="btn">Добавить тур</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Telegram</a>
+            </div>
+            <a href="index.html" class="about-link">О нас</a>
+        </div>
+    </footer>
+
+    <script src="./js/admin.js"></script>
+</body>
+</html>

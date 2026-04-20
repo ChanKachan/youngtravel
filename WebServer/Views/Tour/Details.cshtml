@@ -1,0 +1,102 @@
+﻿@using WebServer.Models
+@model TourDetailViewModel
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Model.Name - Young Traveler</title>
+    <link rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/trour.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">YOUNG TRAVELER</div>
+            <nav>
+                <ul>
+                    <li><a href="/index.html">Главная</a></li>
+                    <li><a href="/about.html">О компании</a></li>
+                    <li><a href="/catalog.html">Каталог</a></li>
+                    <li><a href="/services.html">Услуги</a></li>
+                    <li><a href="/popular-tours.html">Популярные туры</a></li>
+                    <li><a href="/promotions.html">Акции</a></li>
+                    <li><a href="/account.html">Личный кабинет</a></li>
+                    <li><a href="/favorites.html">Избранное</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="tour-details" data-tour-id="@Model.Id" data-tour-name="@Model.Name" data-tour-price="@Model.Cost">
+            <div class="tour-image-full">
+                <img src="@Model.Photo" alt="@Model.Name">
+            </div>
+
+            <div class="tour-info">
+                <h1>@Model.Name</h1>
+
+                <div class="tour-meta">
+                    <div class="tour-price">@Model.Cost.ToString("N0") руб.</div>
+                    <div class="tour-dates">
+                        <p>Период тура:</p> @Model.Period
+                    </div>
+                </div>
+
+                <div class="tour-description-full">
+                    <h2>Описание тура</h2>
+                    <p>@Html.Raw(Model.Description?.Replace("\n", "<br/>") ?? "Описание отсутствует")</p>
+                </div>
+
+                <div class="tour-plan">
+                    <h2>План путешествия</h2>
+                    <div class="tour-plan-days">
+                        <p>Детальный план тура будет предоставлен при бронировании.</p>
+                    </div>
+                </div>
+
+                <div class="tour-included">
+                    <h2>Что включено в тур</h2>
+                    <div class="included-list">
+                        <div class="included-item"><span class="included-icon">✓</span><span>Проживание в отеле</span></div>
+                        <div class="included-item"><span class="included-icon">✓</span><span>Трансферы по программе</span></div>
+                        <div class="included-item"><span class="included-icon">✓</span><span>Экскурсионное обслуживание</span></div>
+                        <div class="included-item"><span class="included-icon">✓</span><span>Медицинская страховка</span></div>
+                        <div class="included-item"><span class="included-icon">✓</span><span>Поддержка 24/7</span></div>
+                    </div>
+                </div>
+
+                <div class="tour-booking">
+                    <h2>Забронировать тур</h2>
+                    <div class="booking-contact">
+                        <p>Для бронирования тура свяжитесь с нами:</p>
+                        <span class="contact-highlight">+7 995 555 12 22</span>
+                        <span class="contact-highlight">young-travel@mail.ru</span>
+                        <p>Наши менеджеры ответят на все ваши вопросы и помогут с оформлением заявки.</p>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="/catalog.html" class="btn">Вернуться к каталогу</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Telegram</a>
+            </div>
+            <a href="/about.html" class="about-link">О нас</a>
+        </div>
+    </footer>
+
+    <script src="~/js/tour.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,177 @@
+﻿@using WebServer.Models
+@model TourDetailViewModel
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Model.Name - Young Traveler</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/trour.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">YOUNG TRAVELER</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/about.html">О компании</a></li>
+                    <li><a href="/catalog.html">Каталог</a></li>
+                    <li><a href="/services.html">Услуги</a></li>
+                    <li><a href="/popular-tours.html">Популярные туры</a></li>
+                    <li><a href="/promotions.html">Акции</a></li>
+                    <li><a href="/account.html">Личный кабинет</a></li>
+                    <li><a href="/favorites.html">Избранное</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="tour-details">
+            <div class="tour-image-full">
+                <img src="@Model.Photo" alt="@Model.Name">
+            </div>
+
+            <div class="tour-info">
+                <h1>@Model.Name</h1>
+
+                <div class="tour-meta">
+                    <div class="tour-price">@Model.Cost.ToString("N0") руб.</div>
+                    <div class="tour-dates">
+                        <p>Период тура:</p> @Model.Period
+                    </div>
+                </div>
+
+                <div class="tour-description-full">
+                    <h2>Описание тура</h2>
+                    <p>@Html.Raw(Model.Description?.Replace("\n", "<br/>") ?? "Описание отсутствует")</p>
+                </div>
+
+                <div class="tour-plan">
+                    <h2>План путешествия</h2>
+                    <div class="tour-plan-days">
+                        <p>Детальный план тура будет предоставлен при бронировании.</p>
+                    </div>
+                </div>
+
+                <div class="tour-included">
+                    <h2>Что включено в тур</h2>
+                    <div class="included-list">
+                        <div class="included-item"><span class="included-icon">✓</span><span>Проживание в отеле</span></div>
+                        <div class="included-item"><span class="included-icon">✓</span><span>Трансферы по программе</span></div>
+                        <div class="included-item"><span class="included-icon">✓</span><span>Экскурсионное обслуживание</span></div>
+                        <div class="included-item"><span class="included-icon">✓</span><span>Медицинская страховка</span></div>
+                        <div class="included-item"><span class="included-icon">✓</span><span>Поддержка 24/7</span></div>
+                    </div>
+                </div>
+
+                <!-- Отзывы -->
+                <div class="tour-reviews-section">
+                    <h2>Отзывы (@Model.TotalReviews)</h2>
+                    <div class="average-rating">
+                        <strong>Общая оценка:</strong> @Model.AverageRating.ToString("F1") / 5
+                    </div>
+
+                    @if (Model.Reviews != null && Model.Reviews.Any())
+                    {
+                        <div class="reviews-list">
+                            @foreach (var review in Model.Reviews)
+                            {
+                                <div class="review-item">
+                                    <div class="review-header">
+                                        <span class="review-author">@review.Name</span>
+                                        <span class="review-rating">Оценка: @review.Stars / 5</span>
+                                        <span class="review-date">@review.CreateDate.ToString("dd.MM.yyyy")</span>
+                                    </div>
+                                    <p class="review-text">@review.Text</p>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="no-reviews">Пока нет отзывов. Будьте первым!</p>
+                    }
+
+                    <!-- Форма добавления отзыва -->
+                    <div class="add-review-form">
+                        <h3>Оставить отзыв</h3>
+                        <form id="addReviewForm" data-tour-id="@Model.Id">
+                            <div class="form-group">
+                                <label for="reviewName">Ваше имя</label>
+                                <input type="text" id="reviewName" name="Name" placeholder="Введите имя" />
+                            </div>
+                            <div class="form-group">
+                                <label for="reviewStars">Оценка</label>
+                                <select id="reviewStars" name="Stars">
+                                    <option value="5">5 - Отлично</option>
+                                    <option value="4">4 - Хорошо</option>
+                                    <option value="3">3 - Средне</option>
+                                    <option value="2">2 - Плохо</option>
+                                    <option value="1">1 - Ужасно</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="reviewText">Текст отзыва</label>
+                                <textarea id="reviewText" name="Text" rows="4" placeholder="Расскажите о вашем впечатлении..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+                        </form>
+                        <div id="reviewMessage" class="message-area"></div>
+                    </div>
+                </div>
+
+                <!-- Блок бронирования -->
+                <div class="tour-booking">
+                    <h2>Забронировать тур</h2>
+                    <form id="bookingForm" data-tour-id="@Model.Id" data-tour-name="@Model.Name">
+                        <div class="form-group">
+                            <label for="bookingName">Ваше имя *</label>
+                            <input type="text" id="bookingName" name="Name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="bookingPhone">Телефон *</label>
+                            <input type="tel" id="bookingPhone" name="Phone" placeholder="+7 (XXX) XXX-XX-XX" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="bookingEmail">Email *</label>
+                            <input type="email" id="bookingEmail" name="Email" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="bookingTravelers">Количество путешественников *</label>
+                            <input type="number" id="bookingTravelers" name="Travelers" min="1" value="1" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="bookingComments">Комментарий</label>
+                            <textarea id="bookingComments" name="Comments" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Забронировать</button>
+                        <div id="bookingMessage" class="message-area"></div>
+                    </form>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="/catalog.html" class="btn">Вернуться к каталогу</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Telegram</a>
+            </div>
+            <a href="/about.html" class="about-link">О нас</a>
+        </div>
+    </footer>
+
+    <script src="/js/tour.js"></script>
+</body>
+</html>
+

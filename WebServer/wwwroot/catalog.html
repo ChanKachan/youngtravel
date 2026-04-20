@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог туров - Young Traveler</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cattalog.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">YOUNG TRAVELER</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О компании</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="popular-tours.html">Популярные туры</a></li>
+                    <li><a href="promotions.html">Акции</a></li>
+                    <li><a href="account.html">Личный кабинет</a></li>
+                    <li><a href="favorites.html">Избранное</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="catalog-container">
+            <aside class="filters">
+                <h3>Фильтры</h3>
+
+                <div class="filter-group search-group">
+                    <label for="search-tours">Поиск туров</label>
+                    <div class="search-wrapper">
+                        <input type="text" id="search-tours" placeholder="Название или город">
+                        <span class="search-icon"></span>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Цена (руб.)</label>
+                    <div class="price-range">
+                        <div class="price-inputs">
+                            <input type="number" id="min-price" placeholder="от" class="price-input" min="0">
+                            <span>-</span>
+                            <input type="number" id="max-price" placeholder="до" class="price-input" min="0">
+                        </div>
+                        <div class="price-slider">
+                            <div class="slider-track"></div>
+                            <input type="range" id="min-price-slider" min="0" max="150000" step="1000" value="0">
+                            <input type="range" id="max-price-slider" min="0" max="150000" step="1000" value="150000">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="duration-filter">Продолжительность (дней)</label>
+                    <div class="duration-range">
+                        <select id="duration-filter">
+                            <option value="">Любая</option>
+                            <option value="1-7">1-7 дней</option>
+                            <option value="8-14">8-14 дней</option>
+                            <option value="15-21">15-21 день</option>
+                            <option value="22+">Более 21 дня</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button id="reset-filters" class="btn" style="width: 100%; margin-top: 1rem;">Сбросить фильтры</button>
+            </aside>
+
+            <div class="tours-content">
+                <div class="sorting">
+                    <div>Найдено туров: <span id="tours-count">0</span></div>
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <label for="sort-tours">Сортировка:</label>
+                        <select id="sort-tours">
+                            <option value="default">По умолчанию</option>
+                            <option value="price-asc">Цена (по возрастанию)</option>
+                            <option value="price-desc">Цена (по убыванию)</option>
+                            <option value="duration-asc">Продолжительность (короткие)</option>
+                            <option value="duration-desc">Продолжительность (длинные)</option>
+                        </select>
+                        <a href="admin.html" class="btn add-tour-btn">Добавить тур</a>
+                    </div>
+                </div>
+
+                <div class="tours-grid">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">Telegram</a>
+            </div>
+            <a href="index.html" class="about-link">О нас</a>
+        </div>
+    </footer>
+
+    <script src="js/catalog.js"></script>
+</body>
+</html>

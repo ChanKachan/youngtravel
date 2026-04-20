@@ -1,0 +1,41 @@
+.about-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+        
+.about-content h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+        
+.about-content p {
+     margin-bottom: 1rem;
+    line-height: 1.8;
+}
+        
+.contact-info {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+        
+.contact-info h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+        
+.contact-item {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+        
+.contact-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: #e74c3c;
+}
