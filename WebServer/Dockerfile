@@ -11,8 +11,8 @@ RUN dotnet publish "WebServer.csproj" -c Release -o /app/publish /p:UseAppHost=f
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
-ENV ASPNETCORE_URLS=http://+:8080
-EXPOSE 8080
+ENV ASPNETCORE_URLS=http://+:7071
+EXPOSE 7071
 
 COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "WebServer.dll"]
