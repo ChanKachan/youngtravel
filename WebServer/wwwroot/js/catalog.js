@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let currentTooltip = null;
     let tooltipTimeout = null;
-    let searchTimeout = null;
+    let suggestionsTimeout = null;
+    let suggestionsEl = null;
     
     const toursContainer = document.querySelector('.tours-grid');
     const priceFilterMin = document.getElementById('min-price');
@@ -218,7 +219,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (searchInput) {
-            searchInput.addEventListener('input', handleSearch);
+            searchInput.addEventListener('input', handleSearchInput);
+            searchInput.addEventListener('keydown', handleSearchKeydown);
+            searchInput.addEventListener('blur', hideSuggestions);
         }
     }
 
@@ -327,14 +330,67 @@ document.addEventListener('DOMContentLoaded', function() {
         loadTours();
     }
 
-    function handleSearch() {
-        if (searchTimeout) clearTimeout(searchTimeout);
-        
-        searchTimeout = setTimeout(() => {
+    function handleSearchInput() {
+        if (suggestionsTimeout) clearTimeout(suggestionsTimeout);
+        const q = searchInput.value.trim();
+        if (q.length < 2) {
+            hideSuggestions();
+            return;
+        }
+        suggestionsTimeout = setTimeout(() => fetchAndShowSuggestions(q), 250);
+    }
+
+    function handleSearchKeydown(e) {
+        if (e.key === 'Enter') {
+            hideSuggestions();
             const query = searchInput.value.trim();
             currentFilters.search = query.length >= 2 ? query : null;
             loadTours();
-        }, 500);
+        } else if (e.key === 'Escape') {
+            hideSuggestions();
+        }
+    }
+
+    async function fetchAndShowSuggestions(q) {
+        try {
+            const response = await fetch(`${API_URL}/search?q=${encodeURIComponent(q)}`);
+            if (!response.ok) return;
+            const items = await response.json();
+            showSuggestions(items);
+        } catch {}
+    }
+
+    function showSuggestions(items) {
+        hideSuggestions();
+        if (!items || items.length === 0) return;
+
+        const wrapper = searchInput.closest('.search-wrapper');
+        suggestionsEl = document.createElement('ul');
+        suggestionsEl.className = 'search-suggestions';
+
+        items.forEach(item => {
+            const li = document.createElement('li');
+            const name = item.Name || item.name || '';
+            const city = item.City || item.city || '';
+            li.textContent = city ? `${name} — ${city}` : name;
+            li.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                searchInput.value = name;
+                hideSuggestions();
+                currentFilters.search = name;
+                loadTours();
+            });
+            suggestionsEl.appendChild(li);
+        });
+
+        wrapper.appendChild(suggestionsEl);
+    }
+
+    function hideSuggestions() {
+        if (suggestionsEl) {
+            suggestionsEl.remove();
+            suggestionsEl = null;
+        }
     }
 
     function resetFilters() {
@@ -351,7 +407,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cityFilter) cityFilter.value = '';
         if (sortSelect) sortSelect.value = 'default';
         if (searchInput) searchInput.value = '';
-        
+        hideSuggestions();
+
         // Сброс состояния фильтров
         currentFilters = {
             minPrice: null,
@@ -917,6 +974,48 @@ document.addEventListener('DOMContentLoaded', function() {
                 border: 1px solid #ddd;
                 border-radius: 4px;
                 font-size: 0.85rem;
+            }
+
+            .search-wrapper {
+                position: relative;
+            }
+
+            .search-suggestions {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                border: 1px solid #ddd;
+                border-top: none;
+                border-radius: 0 0 6px 6px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                z-index: 500;
+                max-height: 240px;
+                overflow-y: auto;
+            }
+
+            .search-suggestions li {
+                padding: 0.55rem 0.75rem;
+                font-size: 0.9rem;
+                color: #2c3e50;
+                cursor: pointer;
+                border-bottom: 1px solid #f0f0f0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .search-suggestions li:last-child {
+                border-bottom: none;
+            }
+
+            .search-suggestions li:hover {
+                background: #f0f6ff;
+                color: #3498db;
             }
         `;
         document.head.appendChild(style);
