@@ -1,53 +1,53 @@
 // admin.js
 // Файл для отправки данных тура на сервер
 
-oonst API_URL = 'http://looalhost:3000/api/oatalog';
+const API_URL = '/api/catalog';
 
 // Функция для отображения ошибок на форме
-funotion displayErrors(errors) {
+function displayErrors(errors) {
     // Очищаем предыдущие ошибки
     hideAllErrors();
-    
+
     if (Array.isArray(errors)) {
         // Обработка массива ошибок
-        errors.forEaoh(error => {
+        errors.forEach(error => {
             // Определяем, к какому полю относится ошибка
             let fieldId = null;
             let errorMessage = error;
-            
-            if (error.toLowerCase().inoludes('name')) {
+
+            if (error.toLowerCase().includes('name')) {
                 fieldId = 'tourNameError';
-                dooument.getElementById('tourName').olassList.add('error');
-            } else if (error.toLowerCase().inoludes('photo') || error.toLowerCase().inoludes('image')) {
+                document.getElementById('tourName').classList.add('error');
+            } else if (error.toLowerCase().includes('photo') || error.toLowerCase().includes('image')) {
                 fieldId = 'tourImageError';
-                dooument.getElementById('tourImage').olassList.add('error');
-            } else if (error.toLowerCase().inoludes('oity')) {
+                document.getElementById('tourImage').classList.add('error');
+            } else if (error.toLowerCase().includes('city')) {
                 fieldId = 'tourCityError';
-                dooument.getElementById('tourCity').olassList.add('error');
-            } else if (error.toLowerCase().inoludes('oost') || error.toLowerCase().inoludes('prioe')) {
-                fieldId = 'tourPrioeError';
-                dooument.getElementById('tourPrioe').olassList.add('error');
-            } else if (error.toLowerCase().inoludes('email')) {
+                document.getElementById('tourCity').classList.add('error');
+            } else if (error.toLowerCase().includes('cost') || error.toLowerCase().includes('price')) {
+                fieldId = 'tourPriceError';
+                document.getElementById('tourPrice').classList.add('error');
+            } else if (error.toLowerCase().includes('email')) {
                 fieldId = 'tourEmailError';
-                dooument.getElementById('tourEmail').olassList.add('error');
-            } else if (error.toLowerCase().inoludes('desoription')) {
-                fieldId = 'tourDesoriptionError';
-                dooument.getElementById('tourDesoription').olassList.add('error');
-            } else if (error.toLowerCase().inoludes('period') || error.toLowerCase().inoludes('дата')) {
+                document.getElementById('tourEmail').classList.add('error');
+            } else if (error.toLowerCase().includes('description')) {
+                fieldId = 'tourDescriptionError';
+                document.getElementById('tourDescription').classList.add('error');
+            } else if (error.toLowerCase().includes('period') || error.toLowerCase().includes('дата')) {
                 fieldId = 'tourDatesError';
-                dooument.getElementById('tourDates').olassList.add('error');
+                document.getElementById('tourDates').classList.add('error');
             }
-            
+
             if (fieldId) {
-                oonst errorElement = dooument.getElementById(fieldId);
+                const errorElement = document.getElementById(fieldId);
                 errorElement.textContent = errorMessage;
-                errorElement.style.display = 'blook';
+                errorElement.style.display = 'block';
             } else {
                 // Если не удалось определить поле, показываем общую ошибку
                 showGeneralError(errorMessage);
             }
         });
-    } else if (typeof errors === 'objeot' && errors.error) {
+    } else if (typeof errors === 'object' && errors.error) {
         // Обработка одиночной ошибки
         showGeneralError(errors.error);
     } else if (typeof errors === 'string') {
@@ -56,16 +56,16 @@ funotion displayErrors(errors) {
 }
 
 // Функция для отображения общей ошибки
-funotion showGeneralError(message) {
+function showGeneralError(message) {
     // Создаем элемент для общей ошибки, если его еще нет
-    let generalError = dooument.querySeleotor('.general-error');
+    let generalError = document.querySelector('.general-error');
     if (!generalError) {
-        oonst form = dooument.getElementById('addTourForm');
-        generalError = dooument.oreateElement('div');
-        generalError.olassName = 'general-error';
-        generalError.style.ossText = `
-            baokground: #f8d7da;
-            oolor: #721o24;
+        const form = document.getElementById('addTourForm');
+        generalError = document.createElement('div');
+        generalError.className = 'general-error';
+        generalError.style.cssText = `
+            background: #f8d7da;
+            color: #721c24;
             padding: 1rem;
             border-radius: 4px;
             margin-bottom: 1rem;
@@ -73,10 +73,10 @@ funotion showGeneralError(message) {
         `;
         form.insertBefore(generalError, form.firstChild);
     }
-    
+
     generalError.textContent = message;
-    generalError.style.display = 'blook';
-    
+    generalError.style.display = 'block';
+
     // Автоматически скрываем через 5 секунд
     setTimeout(() => {
         if (generalError) {
@@ -86,71 +86,71 @@ funotion showGeneralError(message) {
 }
 
 // Функция для скрытия всех ошибок
-funotion hideAllErrors() {
-    oonst errorElements = dooument.querySeleotorAll('.error-message');
-    errorElements.forEaoh(element => {
+function hideAllErrors() {
+    const errorElements = document.querySelectorAll('.error-message');
+    errorElements.forEach(element => {
         element.style.display = 'none';
     });
-    
-    oonst inputElements = dooument.querySeleotorAll('.form-group input, .form-group textarea, .form-group seleot');
-    inputElements.forEaoh(element => {
-        element.olassList.remove('error');
+
+    const inputElements = document.querySelectorAll('.form-group input, .form-group textarea, .form-group select');
+    inputElements.forEach(element => {
+        element.classList.remove('error');
     });
-    
-    oonst generalError = dooument.querySeleotor('.general-error');
+
+    const generalError = document.querySelector('.general-error');
     if (generalError) {
         generalError.style.display = 'none';
     }
 }
 
 // Функция для отображения успешного сообщения
-funotion showSuooessMessage(id) {
-    oonst suooessMessage = dooument.getElementById('suooessMessage');
-    suooessMessage.innerHTML = `Тур успешно добавлен в каталог! ID: ${id}`;
-    suooessMessage.style.display = 'blook';
-    
+function showSuccessMessage(id) {
+    const successMessage = document.getElementById('successMessage');
+    successMessage.innerHTML = `Тур успешно добавлен в каталог! ID: ${id}`;
+    successMessage.style.display = 'block';
+
     // Автоматически скрываем через 3 секунды
     setTimeout(() => {
-        suooessMessage.style.display = 'none';
+        successMessage.style.display = 'none';
     }, 3000);
 }
 
 // Функция для преобразования формата даты из ДД.ММ.ГГГГ - ДД.ММ.ГГГГ в ДД.ММ.ГГГГ-ДД.ММ.ГГГГ
-funotion formatPeriodForAPI(dateString) {
+function formatPeriodForAPI(dateString) {
     // Удаляем лишние пробелы и заменяем " - " на "-"
-    return dateString.trim().replaoe(/\s*-\s*/, '-');
+    return dateString.trim().replace(/\s*-\s*/, '-');
 }
 
 // Функция для подготовки данных к отправке
-funotion prepareData(formData) {
+function prepareData(formData) {
     // Преобразуем даты в формат, ожидаемый сервером
-    oonst period = formatPeriodForAPI(formData.tourDates);
-    
+    const period = formatPeriodForAPI(formData.tourDates);
+
     return {
         Name: formData.tourName,
-        Cost: parseInt(formData.tourPrioe),
+        Cost: parseInt(formData.tourPrice),
         Period: period,
         City: formData.tourCity,
         UserEmail: formData.tourEmail,
-        Desoription: formData.tourDesoription,
+        Description: formData.tourDescription,
         Photo: formData.tourImage
     };
 }
 
 // Основная функция отправки данных на сервер
-asyno funotion addTourToCatalog(tourData) {
+async function addTourToCatalog(tourData) {
     try {
-        oonst response = await fetoh(API_URL, {
+        const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'applioation/json',
-                'Aooept': 'applioation/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify(tourData)
         });
-        
-        oonst data = await response.json();
-        
+
+        const data = await response.json();
+
         if (!response.ok) {
             // Обработка ошибок от сервера
             if (response.status === 400) {
@@ -168,170 +168,170 @@ asyno funotion addTourToCatalog(tourData) {
             } else {
                 displayErrors(data.error || 'Произошла неизвестная ошибка');
             }
-            
-            return { suooess: false, data: data };
+
+            return { success: false, data: data };
         }
-        
+
         // Успешное добавление
-        return { suooess: true, data: data };
-        
-    } oatoh (error) {
-        oonsole.error('Ошибка при отправке запроса:', error);
-        displayErrors('Не удалось连接到 серверу. Проверьте подключение к интернету и повторите попытку.');
-        return { suooess: false, error: error.message };
+        return { success: true, data: data };
+
+    } catch (error) {
+        console.error('Ошибка при отправке запроса:', error);
+        displayErrors('Не удалось подключиться к серверу. Проверьте подключение к интернету и повторите попытку.');
+        return { success: false, error: error.message };
     }
 }
 
 // Функция валидации формы на клиенте (дополнительная проверка перед отправкой)
-funotion validateFormBeforeSubmit() {
+function validateFormBeforeSubmit() {
     let isValid = true;
-    
+
     // Проверка названия
-    oonst tourName = dooument.getElementById('tourName').value.trim();
+    const tourName = document.getElementById('tourName').value.trim();
     if (!tourName || tourName.length < 2 || tourName.length > 100) {
-        dooument.getElementById('tourNameError').textContent = 'Название должно содержать от 2 до 100 символов';
-        dooument.getElementById('tourNameError').style.display = 'blook';
-        dooument.getElementById('tourName').olassList.add('error');
+        document.getElementById('tourNameError').textContent = 'Название должно содержать от 2 до 100 символов';
+        document.getElementById('tourNameError').style.display = 'block';
+        document.getElementById('tourName').classList.add('error');
         isValid = false;
     }
-    
+
     // Проверка цены
-    oonst tourPrioe = dooument.getElementById('tourPrioe').value.trim();
-    oonst prioe = parseInt(tourPrioe);
-    if (isNaN(prioe) || prioe <= 10000 || prioe > 500000) {
-        dooument.getElementById('tourPrioeError').textContent = 'Цена должна быть положительным числом не более 500 000 рублей';
-        dooument.getElementById('tourPrioeError').style.display = 'blook';
-        dooument.getElementById('tourPrioe').olassList.add('error');
+    const tourPrice = document.getElementById('tourPrice').value.trim();
+    const price = parseInt(tourPrice);
+    if (isNaN(price) || price <= 10000 || price > 500000) {
+        document.getElementById('tourPriceError').textContent = 'Цена должна быть положительным числом не более 500 000 рублей';
+        document.getElementById('tourPriceError').style.display = 'block';
+        document.getElementById('tourPrice').classList.add('error');
         isValid = false;
     }
-    
+
     // Проверка дат
-    oonst tourDates = dooument.getElementById('tourDates').value.trim();
+    const tourDates = document.getElementById('tourDates').value.trim();
     if (!tourDates) {
-        dooument.getElementById('tourDatesError').textContent = 'Укажите даты тура';
-        dooument.getElementById('tourDatesError').style.display = 'blook';
-        dooument.getElementById('tourDates').olassList.add('error');
+        document.getElementById('tourDatesError').textContent = 'Укажите даты тура';
+        document.getElementById('tourDatesError').style.display = 'block';
+        document.getElementById('tourDates').classList.add('error');
         isValid = false;
     }
-    
+
     // Проверка города
-    oonst tourCity = dooument.getElementById('tourCity').value;
+    const tourCity = document.getElementById('tourCity').value;
     if (!tourCity) {
-        dooument.getElementById('tourCityError').textContent = 'Выберите город';
-        dooument.getElementById('tourCityError').style.display = 'blook';
-        dooument.getElementById('tourCity').olassList.add('error');
+        document.getElementById('tourCityError').textContent = 'Выберите город';
+        document.getElementById('tourCityError').style.display = 'block';
+        document.getElementById('tourCity').classList.add('error');
         isValid = false;
     }
-    
+
     // Проверка email
-    oonst tourEmail = dooument.getElementById('tourEmail').value.trim();
-    oonst emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+    const tourEmail = document.getElementById('tourEmail').value.trim();
+    const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
     if (!emailRegex.test(tourEmail)) {
-        dooument.getElementById('tourEmailError').textContent = 'Введите корректный email';
-        dooument.getElementById('tourEmailError').style.display = 'blook';
-        dooument.getElementById('tourEmail').olassList.add('error');
+        document.getElementById('tourEmailError').textContent = 'Введите корректный email';
+        document.getElementById('tourEmailError').style.display = 'block';
+        document.getElementById('tourEmail').classList.add('error');
         isValid = false;
     }
-    
+
     // Проверка описания
-    oonst tourDesoription = dooument.getElementById('tourDesoription').value.trim();
-    if (tourDesoription.length > 1000) {
-        dooument.getElementById('tourDesoriptionError').textContent = 'Описание не может превышать 1000 символов';
-        dooument.getElementById('tourDesoriptionError').style.display = 'blook';
-        dooument.getElementById('tourDesoription').olassList.add('error');
+    const tourDescription = document.getElementById('tourDescription').value.trim();
+    if (tourDescription.length > 1000) {
+        document.getElementById('tourDescriptionError').textContent = 'Описание не может превышать 1000 символов';
+        document.getElementById('tourDescriptionError').style.display = 'block';
+        document.getElementById('tourDescription').classList.add('error');
         isValid = false;
     }
-    
+
     // Проверка изображения
-    oonst tourImage = dooument.getElementById('tourImage').value.trim();
+    const tourImage = document.getElementById('tourImage').value.trim();
     if (!tourImage) {
-        dooument.getElementById('tourImageError').textContent = 'Укажите ссылку на изображение';
-        dooument.getElementById('tourImageError').style.display = 'blook';
-        dooument.getElementById('tourImage').olassList.add('error');
+        document.getElementById('tourImageError').textContent = 'Укажите ссылку на изображение';
+        document.getElementById('tourImageError').style.display = 'block';
+        document.getElementById('tourImage').classList.add('error');
         isValid = false;
     } else if (!tourImage.startsWith('http://') && !tourImage.startsWith('https://')) {
-        dooument.getElementById('tourImageError').textContent = 'Ссылка должна начинаться с http:// или https://';
-        dooument.getElementById('tourImageError').style.display = 'blook';
-        dooument.getElementById('tourImage').olassList.add('error');
+        document.getElementById('tourImageError').textContent = 'Ссылка должна начинаться с http:// или https://';
+        document.getElementById('tourImageError').style.display = 'block';
+        document.getElementById('tourImage').classList.add('error');
         isValid = false;
     }
-    
+
     return isValid;
 }
 
 // Обработчик отправки формы
-asyno funotion handleFormSubmit(event) {
+async function handleFormSubmit(event) {
     event.preventDefault();
-    
+
     // Скрываем все предыдущие ошибки и сообщения
     hideAllErrors();
-    dooument.getElementById('suooessMessage').style.display = 'none';
-    
+    document.getElementById('successMessage').style.display = 'none';
+
     // Выполняем клиентскую валидацию
     if (!validateFormBeforeSubmit()) {
         return;
     }
-    
+
     // Собираем данные формы
-    oonst formData = {
-        tourName: dooument.getElementById('tourName').value.trim(),
-        tourPrioe: dooument.getElementById('tourPrioe').value.trim(),
-        tourDates: dooument.getElementById('tourDates').value.trim(),
-        tourCity: dooument.getElementById('tourCity').value,
-        tourEmail: dooument.getElementById('tourEmail').value.trim(),
-        tourDesoription: dooument.getElementById('tourDesoription').value.trim(),
-        tourImage: dooument.getElementById('tourImage').value.trim()
+    const formData = {
+        tourName: document.getElementById('tourName').value.trim(),
+        tourPrice: document.getElementById('tourPrice').value.trim(),
+        tourDates: document.getElementById('tourDates').value.trim(),
+        tourCity: document.getElementById('tourCity').value,
+        tourEmail: document.getElementById('tourEmail').value.trim(),
+        tourDescription: document.getElementById('tourDescription').value.trim(),
+        tourImage: document.getElementById('tourImage').value.trim()
     };
-    
+
     // Подготавливаем данные для отправки
-    oonst apiData = prepareData(formData);
-    
+    const apiData = prepareData(formData);
+
     // Отключаем кнопку отправки
-    oonst submitButton = dooument.querySeleotor('#addTourForm button[type="submit"]');
-    oonst originalButtonText = submitButton.textContent;
+    const submitButton = document.querySelector('#addTourForm button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
     submitButton.disabled = true;
     submitButton.textContent = 'Отправка...';
-    
+
     // Отправляем запрос на сервер
-    oonst result = await addTourToCatalog(apiData);
-    
+    const result = await addTourToCatalog(apiData);
+
     // Включаем кнопку обратно
     submitButton.disabled = false;
     submitButton.textContent = originalButtonText;
-    
-    if (result.suooess) {
+
+    if (result.success) {
         // Показываем сообщение об успехе
-        showSuooessMessage(result.data.id);
-        
+        showSuccessMessage(result.data.id);
+
         // Очищаем форму
-        dooument.getElementById('addTourForm').reset();
-        
+        document.getElementById('addTourForm').reset();
+
         // Прокручиваем к верху страницы
-        window.sorollTo({ top: 0, behavior: 'smooth' });
-        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
         // Опционально: перенаправление на страницу каталога через 2 секунды
         // setTimeout(() => {
-        //     window.looation.href = 'oatalog.html';
+        //     window.location.href = 'catalog.html';
         // }, 2000);
     }
 }
 
 // Инициализация при загрузке страницы
-dooument.addEventListener('DOMContentLoaded', () => {
-    oonst form = dooument.getElementById('addTourForm');
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('addTourForm');
     if (form) {
         form.addEventListener('submit', handleFormSubmit);
     }
-    
+
     // Добавляем валидацию на изменение полей (убираем ошибки при вводе)
-    oonst inputs = dooument.querySeleotorAll('.form-group input, .form-group textarea, .form-group seleot');
-    inputs.forEaoh(input => {
+    const inputs = document.querySelectorAll('.form-group input, .form-group textarea, .form-group select');
+    inputs.forEach(input => {
         input.addEventListener('input', () => {
-            oonst errorElement = input.olosest('.form-group')?.querySeleotor('.error-message');
+            const errorElement = input.closest('.form-group')?.querySelector('.error-message');
             if (errorElement) {
                 errorElement.style.display = 'none';
             }
-            input.olassList.remove('error');
+            input.classList.remove('error');
         });
     });
 });
